@@ -1,0 +1,91 @@
+﻿<Page
+    x:Class="WinApp_Vesti.VestPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:WinApp_Vesti"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <Style TargetType="TextBlock" x:Key="NasStl">
+            <Setter Property="FontSize" Value="42" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Margin" Value="30 0 0 0" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+        <Style TargetType="TextBlock" x:Key="tekstStl">
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="TextWrapping" Value="WrapWholeWords" />
+        </Style>
+        <Style TargetType="TextBlock" x:Key="Komentari">
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Foreground" Value="SkyBlue" />
+            <Setter Property="Margin" Value="30 0 0 0" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="VerticalAlignment" Value="Top" />
+        </Style>
+        <Storyboard x:Name="FadeImageStoryboard">
+            <DoubleAnimation From="0.0" To="1.0" Duration="0:0:1" 
+                                 Storyboard.TargetName="txtNaslov"
+                                 Storyboard.TargetProperty="Opacity" />
+        </Storyboard>
+        <Storyboard x:Name="FadeImageStoryboard1">
+            <DoubleAnimation From="0.0" To="1.0" Duration="0:0:1"
+                                 Storyboard.TargetName="txtPodnaslov"
+                                 Storyboard.TargetProperty="Opacity" />
+        </Storyboard>
+    </Page.Resources>
+
+    <!--<ScrollViewer >-->
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid HorizontalAlignment="Stretch" Margin="10,0,0,10" VerticalAlignment="Stretch" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="4*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="4*" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <StackPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                    <Button VerticalAlignment="Top" Style="{StaticResource NavigationBackButtonNormalStyle}" Margin="20,20,0,0" Tapped="Button_Tapped"/>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                <StackPanel>
+                    <TextBlock x:Name="txtNaslov" Text="{Binding naslov}" Style="{StaticResource NasStl}" HorizontalAlignment="Stretch" Height="72" Margin="0,0,310,0" Loaded="TextBlock_Loaded" />
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                <StackPanel>
+                    <TextBlock x:Name="txtPodnaslov" Text="{Binding tekst}" Style="{StaticResource tekstStl}" Margin="0,0,263,0" Loaded="TextBlock_Loaded_1" Height="252" />
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Row="3" >
+                <StackPanel Orientation="Horizontal" >
+                    <TextBlock x:Name="Tekst" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Text="Upisite komentar: " FontSize="30" Margin="0,11,5,11" Width="251"/>
+                    <TextBox x:Name="tbTekst" AcceptsReturn="True" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.IsVerticalRailEnabled="True" TextWrapping="Wrap" FontSize="20" Width="742" MaxWidth="585" Margin="0,5,0,0"/>
+                    <Button x:Name="Unesi" Content="Potvrdi" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="49" Margin="0,52,0,49" Width="106" Click="Unesi_Click"/>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Row="4" Margin="0,0,0,10" >
+                <StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Left" Height="269" Margin="0,0,0,-4" Width="496">
+                    <TextBlock x:Name="KomentariNaslov" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Text="Komentari:" FontSize="30" Margin="0,11,5,11" Width="251"/>
+                    <TextBlock x:Name="jedan" Style="{StaticResource Komentari}" HorizontalAlignment="Left" ScrollViewer.VerticalScrollBarVisibility="Visible" TextWrapping="Wrap" VerticalAlignment="Top" Height="50" Text="{Binding Prvi, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,11" Width="486"/>
+                    <TextBlock x:Name="dva" Style="{StaticResource Komentari}" HorizontalAlignment="Left" ScrollViewer.VerticalScrollBarVisibility="Visible" TextWrapping="Wrap" VerticalAlignment="Top" Height="50" Text="{Binding Drugi, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,11" Width="486"/>
+                    <TextBlock x:Name="tri" Style="{StaticResource Komentari}" HorizontalAlignment="Left" ScrollViewer.VerticalScrollBarVisibility="Visible" TextWrapping="Wrap" VerticalAlignment="Top" Height="50" Text="{Binding Treci, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,11" Width="486"/>
+                    <!--<TextBlock x:Name="cetiri" HorizontalAlignment="Left" ScrollViewer.VerticalScrollBarVisibility="Visible" TextWrapping="Wrap" VerticalAlignment="Top" Text="4" FontSize="30" Margin="0,11,5,11" Width="251"/>
+                        <TextBlock x:Name="pet" HorizontalAlignment="Left" ScrollViewer.VerticalScrollBarVisibility="Visible" TextWrapping="Wrap" VerticalAlignment="Top" Text="5" FontSize="30" Margin="0,11,5,11" Width="251"/>-->
+                </StackPanel>
+            </Grid>
+        </Grid>
+
+    </Grid>
+    <!--</ScrollViewer>-->
+</Page>

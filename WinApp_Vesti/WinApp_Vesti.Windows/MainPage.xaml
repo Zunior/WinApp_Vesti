@@ -1,0 +1,73 @@
+﻿<Page
+    x:Class="WinApp_Vesti.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:WinApp_Vesti"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    
+
+    <Page.Resources>
+        <Storyboard x:Key="AnimacijaTeksta1">
+            <DoubleAnimation Storyboard.TargetName="tb1" Storyboard.TargetProperty="FontSize"
+                EnableDependentAnimation="True" From="40" To="45" Duration="0:0:0.1" />
+        </Storyboard>
+        <Storyboard x:Key="AnimacijaTekstaNazad1">
+            <DoubleAnimation Storyboard.TargetName="tb1" Storyboard.TargetProperty="FontSize"
+                EnableDependentAnimation="True" From="45" To="40" Duration="0:0:0.1" />
+        </Storyboard>
+        <Storyboard x:Key="AnimacijaTeksta2">
+            <DoubleAnimation Storyboard.TargetName="tb2" Storyboard.TargetProperty="FontSize"
+                EnableDependentAnimation="True" From="40" To="45" Duration="0:0:0.1" />
+        </Storyboard>
+        <Storyboard x:Key="AnimacijaTekstaNazad2">
+            <DoubleAnimation Storyboard.TargetName="tb2" Storyboard.TargetProperty="FontSize"
+                EnableDependentAnimation="True" From="45" To="40" Duration="0:0:0.1" />
+        </Storyboard>
+        <Storyboard x:Key="AnimacijaTeksta3">
+            <DoubleAnimation Storyboard.TargetName="tb3" Storyboard.TargetProperty="FontSize"
+                EnableDependentAnimation="True" From="40" To="45" Duration="0:0:0.1" />
+        </Storyboard>
+        <Storyboard x:Key="AnimacijaTekstaNazad3">
+            <DoubleAnimation Storyboard.TargetName="tb3" Storyboard.TargetProperty="FontSize"
+                EnableDependentAnimation="True" From="45" To="40" Duration="0:0:0.1" />
+        </Storyboard>
+        <Storyboard x:Key="AnimacijaTeksta5">
+            <DoubleAnimation Storyboard.TargetName="tb5" Storyboard.TargetProperty="FontSize"
+                EnableDependentAnimation="True" From="40" To="45" Duration="0:0:0.1" />
+        </Storyboard>
+        <Storyboard x:Key="AnimacijaTekstaNazad5">
+            <DoubleAnimation Storyboard.TargetName="tb5" Storyboard.TargetProperty="FontSize"
+                EnableDependentAnimation="True" From="45" To="40" Duration="0:0:0.1" />
+        </Storyboard>
+    </Page.Resources>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width = "*" />
+            <ColumnDefinition Width = "5*" />
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0" x:Name = "gridLevi" Background="Chocolate" >
+            <StackPanel Tapped="StackPanel_Tapped" HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="228">
+                <Grid Height="764">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="3*" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Name="tb1" Grid.Row="1" Text="Aktuelno"  FontSize="42" VerticalAlignment="Center" HorizontalAlignment="Center" Width="auto"  Height="auto" Margin="0,0,0,0" PointerEntered="tb1_PointerEntered" PointerExited="tb1_PointerExited" Tapped="tb1_Tapped" />
+                    <TextBlock Name="tb2" Grid.Row="2" Text="Svet" FontSize="42" VerticalAlignment="Center" HorizontalAlignment="Center" PointerEntered="tb2_PointerEntered" PointerExited="tb2_PointerExited" Tapped="tb2_Tapped" />
+                    <TextBlock Name="tb3" Grid.Row="3" Text="Zabava" FontSize="42" VerticalAlignment="Center" HorizontalAlignment="Center" PointerEntered="tb3_PointerEntered" PointerExited="tb3_PointerExited" Tapped="tb3_Tapped" />
+                    <TextBlock Name="tb5" Grid.Row="5" Text="Unos" FontSize="42" VerticalAlignment="Center" HorizontalAlignment="Center" PointerEntered="tb5_PointerEntered" PointerExited="tb5_PointerExited" Tapped="tb5_Tapped" />
+                </Grid>
+            </StackPanel>
+        </Grid>
+        <ProgressBar Grid.Column="1" IsIndeterminate="True" Width="400" Maximum="100" Height="10" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed" Name="pBar"/>
+        <StackPanel x:Name="pageStack" Grid.Column="1" HorizontalAlignment="Stretch" Height="767" Margin="10,0,-5,0" VerticalAlignment="Top">
+            <Frame x:Name="frame"/>
+        </StackPanel>
+    </Grid>
+</Page>
