@@ -24,10 +24,8 @@ namespace WinApp_Vesti
     
     public sealed partial class MainPage : Page
     {
-        String[] podaci;
         List<Vest> vestiGl = new List<Vest>();
         List<Vest> vestiPriv = new List<Vest>();
-        List<List<Vest>> glavneVesti = new List<List<Vest>>();
 
         public MainPage()
         {
@@ -35,34 +33,17 @@ namespace WinApp_Vesti
             this.Loaded += MainPage_Loaded;
         }
 
-        void MainPage_Loaded(object sender, RoutedEventArgs e)
+        async void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
-            LoadTextFromFile();
+            Task<List<Vest>> vestTask = LoadTextFromFile();
+            vestiGl = await vestTask;
 
         }
-
-        public static async Task<string> ReadTextFile(string filename)
+        
+        private async Task<List<Vest>> LoadTextFromFile()
         {
-            string contents;
-
-            StorageFolder localFolder = ApplicationData.Current.LocalFolder;
-            StorageFile textFile = await localFolder.GetFileAsync(filename);
-            // Pravi folder C:\Users\Sasa.Popovic\AppData\Local\Packages\799b77d2-6b3c-4e93-a40c-eb6ca27db8b3_gzz65b1z4sg4w\LocalState
-
-            using (IRandomAccessStream textStream = await textFile.OpenReadAsync())
-            {
-                using (DataReader textReader = new DataReader(textStream))
-                {
-                    uint textLength = (uint)textStream.Size;
-                    await textReader.LoadAsync(textLength);
-                    contents = textReader.ReadString(textLength);
-                }
-            }
-            return contents;
-        }
-        private async void LoadTextFromFile()
-        {
-            Task<string> stringTask = ReadTextFile("vesti.txt");
+            List<Vest> vesti = new List<Vest>();
+            Task<string> stringTask = FileManager.ReadTextFile("vesti.txt");
             string vestiText = await stringTask;
             String[] procitano = vestiText.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);
 
@@ -70,8 +51,9 @@ namespace WinApp_Vesti
             for (int i = 0; i < procitano.Length - 1; i++)
             {
                 String[] Podatak = procitano[i].Split('|');
-                vestiGl.Add(new Vest(Podatak[0], Podatak[1], Podatak[2], Podatak[3], Podatak[4], bool.Parse(Podatak[5]), Podatak[6]));
+                vesti.Add(new Vest(Podatak[0], Podatak[1], Podatak[2], Podatak[3], Podatak[4], bool.Parse(Podatak[5]), Podatak[6]));
             }
+            return vesti;
         }
 
         
@@ -130,7 +112,9 @@ namespace WinApp_Vesti
 
         async private void tb1_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            vestiPriv = Vest.IzlistajVesti();
+            Task<List<Vest>> vestTask = LoadTextFromFile();
+            vestiGl = await vestTask;
+            vestiPriv = new List<Vest>(vestiGl);
 
             for (int i = vestiPriv.Count - 1; i >= 0; i--)
             {
@@ -145,7 +129,9 @@ namespace WinApp_Vesti
 
         async private void tb2_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            vestiPriv = Vest.IzlistajVesti();
+            Task<List<Vest>> vestTask = LoadTextFromFile();
+            vestiGl = await vestTask;
+            vestiPriv = new List<Vest>(vestiGl);
 
             for (int i = vestiPriv.Count - 1; i >= 0; i--)
             {
@@ -160,7 +146,9 @@ namespace WinApp_Vesti
 
         async private void tb3_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            vestiPriv = Vest.IzlistajVesti();
+            Task<List<Vest>> vestTask = LoadTextFromFile();
+            vestiGl = await vestTask;
+            vestiPriv = new List<Vest>(vestiGl);
 
             for (int i = vestiPriv.Count - 1; i >= 0; i--)
             {
@@ -173,8 +161,10 @@ namespace WinApp_Vesti
             frame.Navigate(typeof(ZabavaPage), vestiPriv);
         }
 
-        private void tb5_Tapped(object sender, TappedRoutedEventArgs e)
+        async private void tb5_Tapped(object sender, TappedRoutedEventArgs e)
         {
+            Task<List<Vest>> vestTask = LoadTextFromFile();
+            vestiGl = await vestTask;
             frame.Navigate(typeof(UnosPage), vestiGl);
         }
     }
