@@ -23,6 +23,7 @@ namespace WinApp_Vesti
     public sealed partial class VestPage : Page
     {
         Vest vest = new Vest();
+        List<Vest> sveVesti = new List<Vest>();
         //StackPanel myStackPanel;
         String[] sviK;
         //TextBlock txt1;
@@ -111,7 +112,10 @@ namespace WinApp_Vesti
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             this.DataContext = e.Parameter;
-            vest = (Vest)e.Parameter;
+            List<object> sve = (List<object>)e.Parameter;
+            vest = (Vest)sve[1];
+            sveVesti = (List<Vest>)sve[0];
+            //vest = (Vest)e.Parameter;
             
 
             if (vest.komentari!=null && !vest.komentari.Equals(""))

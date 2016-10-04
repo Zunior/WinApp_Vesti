@@ -11,7 +11,6 @@ namespace WinApp_Vesti
     class FileManager
     {
         static List<Vest> vestiGL = new List<Vest>();
-        static string _putanja;
                 
         public static async Task<FileManager> Create()
         {

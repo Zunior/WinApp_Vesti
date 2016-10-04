@@ -42,7 +42,10 @@ namespace WinApp_Vesti
         private void Item_click(object sender, ItemClickEventArgs e)
         {
             var item = e.ClickedItem;
-            this.Frame.Navigate(typeof(VestPage), item);
+            List<object> sviPodaci = new List<object>();
+            sviPodaci.Add(prikazVesti);
+            sviPodaci.Add(item);
+            this.Frame.Navigate(typeof(VestPage), sviPodaci);
         }
 
 
