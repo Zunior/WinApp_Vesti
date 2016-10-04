@@ -35,28 +35,10 @@ namespace WinApp_Vesti
 
         async void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
-            Task<List<Vest>> vestTask = LoadTextFromFile();
-            vestiGl = await vestTask;
-
+            var citanje = await FileManager.Create();
+            vestiGl = citanje.vratiVesti();
         }
-        
-        private async Task<List<Vest>> LoadTextFromFile()
-        {
-            List<Vest> vesti = new List<Vest>();
-            Task<string> stringTask = FileManager.ReadTextFile("vesti.txt");
-            string vestiText = await stringTask;
-            String[] procitano = vestiText.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);
-
-            //skida poslednji prazan red
-            for (int i = 0; i < procitano.Length - 1; i++)
-            {
-                String[] Podatak = procitano[i].Split('|');
-                vesti.Add(new Vest(Podatak[0], Podatak[1], Podatak[2], Podatak[3], Podatak[4], bool.Parse(Podatak[5]), Podatak[6]));
-            }
-            return vesti;
-        }
-
-        
+                
         private void StackPanel_Tapped(object sender, TappedRoutedEventArgs e)
         {
             //frame.Navigate(typeof(ZabavaPage));
@@ -112,8 +94,8 @@ namespace WinApp_Vesti
 
         async private void tb1_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            Task<List<Vest>> vestTask = LoadTextFromFile();
-            vestiGl = await vestTask;
+            var citanje = await FileManager.Create();
+            vestiGl = citanje.vratiVesti();
             vestiPriv = new List<Vest>(vestiGl);
 
             for (int i = vestiPriv.Count - 1; i >= 0; i--)
@@ -129,8 +111,8 @@ namespace WinApp_Vesti
 
         async private void tb2_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            Task<List<Vest>> vestTask = LoadTextFromFile();
-            vestiGl = await vestTask;
+            var citanje = await FileManager.Create();
+            vestiGl = citanje.vratiVesti();
             vestiPriv = new List<Vest>(vestiGl);
 
             for (int i = vestiPriv.Count - 1; i >= 0; i--)
@@ -146,8 +128,8 @@ namespace WinApp_Vesti
 
         async private void tb3_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            Task<List<Vest>> vestTask = LoadTextFromFile();
-            vestiGl = await vestTask;
+            var citanje = await FileManager.Create();
+            vestiGl = citanje.vratiVesti();
             vestiPriv = new List<Vest>(vestiGl);
 
             for (int i = vestiPriv.Count - 1; i >= 0; i--)
@@ -161,10 +143,10 @@ namespace WinApp_Vesti
             frame.Navigate(typeof(ZabavaPage), vestiPriv);
         }
 
-        async private void tb5_Tapped(object sender, TappedRoutedEventArgs e)
+        private async void tb5_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            Task<List<Vest>> vestTask = LoadTextFromFile();
-            vestiGl = await vestTask;
+            var citanje = await FileManager.Create();
+            vestiGl = citanje.vratiVesti();
             frame.Navigate(typeof(UnosPage), vestiGl);
         }
     }
