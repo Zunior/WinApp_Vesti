@@ -111,12 +111,13 @@ namespace WinApp_Vesti
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            this.DataContext = e.Parameter;
+            //this.DataContext = e.Parameter;
             List<object> sve = (List<object>)e.Parameter;
             vest = (Vest)sve[1];
             sveVesti = (List<Vest>)sve[0];
+            this.DataContext = vest;
             //vest = (Vest)e.Parameter;
-            
+
 
             if (vest.komentari!=null && !vest.komentari.Equals(""))
             {
