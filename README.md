@@ -1,4 +1,4 @@
-# WinApp_Vesti
+# Windows aplikacija za pregled vesti
 
 Ovde se može videti primer Windows aplikacije. Ista je rađena u okviru školskog projekta.
 
